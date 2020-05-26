@@ -43,4 +43,6 @@ On the page with the submit form, the data entry check is implemented.
 
 ![form-page](./snapshots/4.form-page.jpg)
 
+![success-message](./snapshots/6.success-message.jpg)
+
 ![responsive-main-page](./snapshots/5.responsive-main-page.jpg)

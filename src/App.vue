@@ -1,5 +1,4 @@
 <template>
-<!--  <div id="app" :style="bgStyle">-->
   <div id="app">
     <my-header></my-header>
     
@@ -9,27 +8,63 @@
       <transition name="fade" mode="out-in" v-else>
         <router-view/>
       </transition>
+  
+      <alert @showAlert="toggleAlert" :show="showErrorMessage" :isError="true" :title="checkError"/>
+      <alert @showAlert="toggleAlert" :show="showSuccessMessage" :title="checkSuccess"/>
     </div>
+    
   </div>
 </template>
 
 <script>
   import MyHeader from './components/Header.vue';
   import Loader from './components/Loader.vue';
+  import Alert from './components/Alert.vue';
   
   
   export default {
     name: 'app',
-    components: { MyHeader, Loader },
+    components: { MyHeader, Loader, Alert },
+    data() {
+      return {
+        showErrorMessage: false,
+        showSuccessMessage: false
+      }
+    },
+    methods: {
+      toggleAlert({ isError }) {
+        if (isError) {
+          this.showErrorMessage = false
+        } else {
+          this.showSuccessMessage = false
+        }
+      }
+    },
     computed: {
       loading () {
         return this.$store.getters.loading
       },
-      bgStyle() {
-        return {
-          'background': `url(${ require('@/assets/images/sign.jpg') }) repeat`,
-          'background-size': '15% auto'
+      checkError() {
+        const errorMessage = this.$store.getters.error;
+        
+        if (errorMessage) {
+          this.showErrorMessage = true;
+          
+          return errorMessage
         }
+        
+        return '';
+      },
+      checkSuccess() {
+        const successMessage = this.$route.query;
+        
+        if (successMessage.totalPrice) {
+          this.showSuccessMessage = true;
+      
+          return `${ successMessage.user } your your ${ this.$options.filters.formatPrice(successMessage.totalPrice) } order is accepted`
+        }
+        
+        return '';
       }
     },
     async created () {
@@ -45,6 +80,7 @@
     position: relative;
     margin-top: 87px;
     height: 100%;
+    min-height: 90vh;
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

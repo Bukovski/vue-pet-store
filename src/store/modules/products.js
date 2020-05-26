@@ -53,7 +53,7 @@ const actions = {
       commit('SET_LOADING', false);
     } catch (error) {
       commit('SET_LOADING', false);
-      commit('SET_ERROR', error.message);
+      commit('SET_ERROR', "Data was not loaded from the server");
   
       throw error
     }

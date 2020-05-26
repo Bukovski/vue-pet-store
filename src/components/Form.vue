@@ -114,11 +114,10 @@
           { "cartProduct": filterProduct }
         )
         
-        console.log('Form Submitted', JSON.stringify(sendInfo));
+        console.log('Send to server:', JSON.stringify(sendInfo));
         
+        this.redirectToMainPage();
         this.clearForm();
-        
-        this.$router.push({ path: '/' });
         
         this.$store.dispatch('clearCart');
       },
@@ -126,7 +125,6 @@
         Object.keys(this.order).forEach((key,index) => {
           this.order[ key ] = '';
         });
-        
       },
       onValidate(value) {
         if (value.isValidByLibPhoneNumberJs) {
@@ -134,6 +132,12 @@
         } else {
           this.phoneError = "Enter your correct phone number"
         }
+      },
+      redirectToMainPage() {
+        this.$router.push({ path: '/', query: {
+          "user": `${ this.order.firstName } ${ this.order.lastName }` ,
+          "totalPrice": this.$store.getters.getCartTotalPrice
+        }});
       }
     }
   };
