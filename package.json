@@ -1,7 +1,17 @@
 {
-  "name": "vue-pet-depot",
+  "name": "vue-pet-store",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bukovski/vue-pet-store.git"
+  },
+  "keywords": [
+    "vue example",
+    "vuex example",
+    "vue-router example"
+  ],
+  "author": "Bukovski",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"
@@ -18,5 +28,10 @@
     "@vue/cli-plugin-vuex": "~4.4.0",
     "@vue/cli-service": "~4.4.0",
     "vue-template-compiler": "^2.6.11"
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }
