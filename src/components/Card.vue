@@ -5,6 +5,13 @@
         <div class="navbar-header">
           <h1>{{ sitename }}</h1>
         </div>
+        <div class="nav navbar-nav navbar-right cart">
+          <button type="button" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-shopping-cart"></span>
+            <span class="badge badge-secondary">{{ cartItemCount}}</span>
+            Checkout
+          </button>
+        </div>
       </div>
     </header>
     
@@ -24,7 +31,8 @@
             </p>
             <button
                 class=" btn btn-primary btn-lg"
-                :disabled="false"
+                :disabled="canAddToCart"
+                @click="addToCart"
             >
               Add to cart
             </button>
@@ -48,10 +56,24 @@
           id: 1001,
           title: "Cat Food, 25lb bag",
           description: "A 25 pound bag of <em>irresistible</em>, organic goodness for your cat.",
-          price: 123456789,
+          price: 2000,
           image: "cat-eats-from-bowl.jpg",
           availableInventory: 5
         },
+        cart: []
+      }
+    },
+    methods: {
+      addToCart() {
+        this.cart.push(this.product)
+      }
+    },
+    computed: {
+      cartItemCount() {
+        return this.cart.length || "";
+      },
+      canAddToCart() {
+        return this.cartItemCount > this.product.availableInventory
       }
     },
     filters: {
@@ -75,7 +97,6 @@
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   header h1{
     padding: 10px 20px;
