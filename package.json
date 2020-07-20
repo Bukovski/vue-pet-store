@@ -1,11 +1,12 @@
 {
-  "name": "vue-pet-store",
+  "name": "ue-pet-store",
   "version": "0.1.0",
   "private": false,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Bukovski/vue-pet-store.git"
   },
+  "homepage": "https://bukovski.github.io/vue-pet-store/",
   "keywords": [
     "vue example",
     "vuex example",
