@@ -1,19 +1,38 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Form from '@/components/Form';
+import Main from '@/components/Main';
+import Product from '@/components/Product';
+import EditProduct from '@/components/EditProduct';
 
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Main',
+    component: Main,
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
+    path: '/product/:id',
+    name: 'ProductId',
+    component: Product,
+    children: [
+      {
+        path: 'edit',
+        name: 'Edit',
+        component: EditProduct,
+      }
+    ]
+  },
+  {
+    path: '/form',
+    name: 'Form',
+    component: Form,
+  },
+  {
+    path: '*',
+    redirect:"/"
   }
 ]
 
