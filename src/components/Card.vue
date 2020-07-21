@@ -24,7 +24,7 @@
         <div v-if="toggleProductForm" class="col-md-10 col-md-offset-1">
           <div
               class="card col-md-4 card-frame"
-              v-for="product in products"
+              v-for="product in sortProducts"
               :key="product.id"
           >
             <img
@@ -252,6 +252,19 @@
       cartItemCount() {
         return this.cart.length || '';
       },
+      sortProducts() {
+        if (this.products.length > 0) {
+          const saveProductsArray = this.products.slice(0);
+          
+          const compare = (a, b) => {
+            if (a.title.toLowerCase() < b.title.toLowerCase()) return -1;
+            if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
+            return 0;
+          }
+          
+          return saveProductsArray.sort(compare);
+        }
+      }
     },
     filters: {
       formatPrice(price) { // 123456789 => $1,234,567.89
