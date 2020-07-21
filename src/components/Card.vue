@@ -23,7 +23,7 @@
       <div class="row">
         <div v-if="toggleProductForm" class="col-md-10 col-md-offset-1">
           <div
-              class="card col-md-4 card-frame"
+              class="card col-lg-4 col-md-6 col-sm-12 card-frame"
               v-for="product in sortProducts"
               :key="product.id"
           >
@@ -37,6 +37,13 @@
               <h3 class="card-title">{{ product.title }}</h3>
               
               <p class="card-text" v-html="product.description"></p>
+              
+              <!--<span class="inventory-message" v-if="product.availableInventory - cartCount(product.id) === 0">All Out!</span>
+              <span class="inventory-message" v-else-if="product.availableInventory - cartCount(product.id) < 5">Only {{ product.availableInventory - cartCount(product.id) }} left!</span>
+              <span class="inventory-message" v-else>Buy Now!</span>-->
+              
+              <span class="inventory-message" v-html="shoppingTips(product)"></span>
+              
               <p class="price">{{ product.price | formatPrice}}</p>
               
               <button
@@ -46,6 +53,8 @@
               >
                 Add to cart
               </button>
+  
+              
             </div>
           </div>
         </div>
@@ -239,6 +248,11 @@
         
         return 0;
       },
+      shoppingTips(product) {
+        if (product.availableInventory - this.cartCount(product.id) === 0) return "All Out!";
+        if (product.availableInventory - this.cartCount(product.id) < 10) return `Only ${ product.availableInventory - this.cartCount(product.id) } left!`;
+        return "Order Now!";
+      },
       showCheckout() {
         if (this.cartItemCount) {
           this.toggleProductForm = !this.toggleProductForm;
@@ -316,7 +330,13 @@
   }
   
   .card-frame {
-    padding: 10px 10px;
+    padding: 10px 2px;
     box-sizing: border-box;
+  }
+
+  .inventory-message {
+    font-weight: bold;
+    font-size: 18px;
+    color: #d60000;
   }
 </style>

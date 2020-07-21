@@ -24,7 +24,7 @@
       "description": "Premium kitty litter for your cat.",
       "price": 1100,
       "image": "comfort.jpg",
-      "availableInventory": 99,
+      "availableInventory": 0,
       "rating": 4
     },
     {
@@ -33,7 +33,7 @@
       "description": "A food for your dog!",
       "price": 799,
       "image": "dog-food.jpg",
-      "availableInventory": 11,
+      "availableInventory": 5,
       "rating": 5
     },
     {
