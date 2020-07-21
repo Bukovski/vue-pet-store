@@ -1,53 +1,53 @@
 <template>
-  <div>
-  <my-header :cartItemCount="cartItemCount"></my-header>
-  
-  <main>
-    <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-        <div
-            class="card col-lg-4 col-md-6 col-sm-12 card-frame"
-            v-for="product in sortProducts"
-            :key="product.id"
-        >
-          <img
-              class="card-img-top"
-              alt="image"
-              :src="require(`@/assets/images/${ product.image }`)"
-          />
-          
-          <div class="card-body">
-            <router-link
-                tag="h3"
-                class="card-title"
-                :to="{ name : 'ProductId', params: {id: product.id}}"
-            >
-              {{ product.title }}
-            </router-link>
-  
-<!--            <h3 class="card-title">{{ product.title }}</h3>-->
+  <fragment>
+    <my-header :cartItemCount="cartItemCount"></my-header>
+    
+    <main>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <div
+              class="card col-lg-4 col-md-6 col-sm-12 card-frame"
+              v-for="product in sortProducts"
+              :key="product.id"
+          >
+            <img
+                class="card-img-top"
+                alt="image"
+                :src="require(`@/assets/images/${ product.image }`)"
+            />
             
-            <p class="card-text" v-html="product.description"></p>
+            <div class="card-body">
+              <router-link
+                  tag="h3"
+                  class="card-title"
+                  :to="{ name : 'ProductId', params: { id: product.id }}"
+              >
+                {{ product.title }}
+              </router-link>
+              
+              <!--            <h3 class="card-title">{{ product.title }}</h3>-->
+              
+              <p class="card-text" v-html="product.description"></p>
+              
+              <span class="inventory-message" v-html="shoppingTips(product)"></span>
+              
+              <p class="price">{{ product.price | formatPrice }}</p>
+              
+              <button
+                  class=" btn btn-primary btn-lg"
+                  @click="addToCart(product)"
+                  :disabled="canAddToCart(product)"
+              >
+                Add to cart
+              </button>
             
-            <span class="inventory-message" v-html="shoppingTips(product)"></span>
             
-            <p class="price">{{ product.price | formatPrice }}</p>
-            
-            <button
-                class=" btn btn-primary btn-lg"
-                @click="addToCart(product)"
-                :disabled="canAddToCart(product)"
-            >
-              Add to cart
-            </button>
-          
-          
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </main>
-  </div>
+    </main>
+  </fragment>
 </template>
 
 <script>
@@ -109,24 +109,6 @@
           
           return saveProductsArray.sort(compare);
         }
-      }
-    },
-    filters: {
-      formatPrice(price) { // 123456789 => $1,234,567.89
-        if (!parseInt(price)) return "";
-        
-        if (price > 99999) {
-          const priceString = (price / 100).toFixed(2);
-          const priceFormat =  priceString.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-          
-          return "$" + priceFormat;
-        }
-        
-        return "$" + (price / 100).toFixed(2);
-      },
-      currencyPrice(price) { // 1234567.89 => $1,234,567.89
-        return new Intl.NumberFormat("en-US",
-          { style: "currency", currency: "USD" }).format(price);
       }
     },
     async created () {

@@ -1,5 +1,8 @@
 <template>
-  <h2>Edit product</h2>
+  <fragment>
+    <h2>Edit product</h2>
+    
+  </fragment>
 </template>
 
 <script>

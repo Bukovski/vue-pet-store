@@ -3,7 +3,7 @@
     <div class="navbar navbar-default">
       <div class="navbar-header">
         <h1 class="site-title">
-          <router-link :to="{ name: 'Main' }">{{ siteName }}</router-link>
+          <router-link class="site-link" :to="{ name: 'Main' }">{{ siteName }}</router-link>
         </h1>
       </div>
       <div class="nav navbar-nav navbar-right cart">
@@ -37,6 +37,10 @@
 <style scoped>
   .site-title {
     padding: 10px 20px;
+  }
+
+  .site-title .site-link {
+    color: black;
   }
   
   .cart {
