@@ -1,5 +1,5 @@
 <template>
-  <fragment>
+  <div>
     <my-header :cartItemCount="cartItemCount"></my-header>
     
     <div class="row">
@@ -128,7 +128,7 @@
       </div>
     </div>
   
-  </fragment>
+  </div>
 </template>
 
 <script>
