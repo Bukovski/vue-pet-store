@@ -12,7 +12,7 @@
               @click="showCheckout"
           >
             <span class="glyphicon glyphicon-shopping-cart"></span>
-            <span class="badge badge-secondary">{{ cartItemCount}}</span>
+            <span class="badge badge-secondary">{{ cartItemCount }}</span>
             Checkout
           </button>
         </div>
@@ -21,11 +21,12 @@
     
     <main>
       <div class="row">
-        <div
-            class="col-md-6 col-lg-4"
-            v-if="toggleProductForm"
-        >
-          <div class="card">
+        <div v-if="toggleProductForm" class="col-md-10 col-md-offset-1">
+          <div
+              class="card col-md-4 card-frame"
+              v-for="product in products"
+              :key="product.id"
+          >
             <img
                 class="card-img-top"
                 alt="image"
@@ -40,8 +41,8 @@
               
               <button
                   class=" btn btn-primary btn-lg"
-                  :disabled="canAddToCart"
-                  @click="addToCart"
+                  @click="addToCart(product)"
+                  :disabled="canAddToCart(product)"
               >
                 Add to cart
               </button>
@@ -182,6 +183,9 @@
 </template>
 
 <script>
+  import axios from 'axios';
+  
+  
   export default {
     name: 'Card',
     props: {
@@ -189,14 +193,7 @@
     },
     data(){
       return {
-        product: {
-          id: 1001,
-          title: "Cat Food, 25lb bag",
-          description: "A 25 pound bag of <em>irresistible</em>, organic goodness for your cat.",
-          price: 2000,
-          image: "cat-eats-from-bowl.jpg",
-          availableInventory: 5
-        },
+        products: [],
         toggleProductForm: true,
         cart: [],
         order: {
@@ -223,8 +220,24 @@
       }
     },
     methods: {
-      addToCart() {
-        this.cart.push(this.product)
+      addToCart(product) {
+        this.cart.push(product)
+      },
+      canAddToCart(product) {
+        return this.cartCount(product.id) > (product.availableInventory - 1)
+      },
+      cartCount(id) {
+        if (this.cart.length) {
+          return this.cart.reduce((accumulator, available) => {
+            if (available.id === id) {
+              return accumulator += 1
+            }
+            
+            return accumulator;
+          }, 0)
+        }
+        
+        return 0;
       },
       showCheckout() {
         if (this.cartItemCount) {
@@ -233,15 +246,12 @@
       },
       submitForm() {
         console.log('Form Submitted', this.order);
-      }
+      },
     },
     computed: {
       cartItemCount() {
-        return this.cart.length || "";
+        return this.cart.length || '';
       },
-      canAddToCart() {
-        return this.cartItemCount > this.product.availableInventory
-      }
     },
     filters: {
       formatPrice(price) { // 123456789 => $1,234,567.89
@@ -259,6 +269,15 @@
       currencyPrice(price) { // 1234567.89 => $1,234,567.89
         return new Intl.NumberFormat("en-US",
           { style: "currency", currency: "USD" }).format(price);
+      }
+    },
+    async created () {
+      try {
+        const response = await axios.get('http://localhost:3000/products')
+        
+        this.products = response.data;
+      } catch (e) {
+        throw e
       }
     }
   }
@@ -281,5 +300,10 @@
     width: 100%;
     height: 15vw;
     object-fit: cover;
+  }
+  
+  .card-frame {
+    padding: 10px 10px;
+    box-sizing: border-box;
   }
 </style>
