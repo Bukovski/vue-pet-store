@@ -19,3 +19,5 @@ Vue.filter("currencyPrice", (price) => {
   return new Intl.NumberFormat("en-US",
     { style: "currency", currency: "USD" }).format(price);
 })
+
+Vue.filter("first50Chars", str => str.substring(0, 47) + "...")
