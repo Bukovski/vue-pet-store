@@ -1,38 +1,35 @@
 <template>
-  <fragment>
-<!--    <my-header></my-header>-->
+  <div v-if="loading || !product.id" style="height: 100vh;">
+    <div style="color: red; position: absolute; left: 50%; top: 50%;">
+      <vue-loaders-pacman color="currentColor" scale="1"></vue-loaders-pacman>
+    </div>
+  </div>
+  
+  <fragment v-else>
+    <h1>This is the id {{ $route.params.id }}</h1>
     
-    <fragment v-if="product && product.id">
-      <h1>This is the id {{ $route.params.id }}</h1>
-      
-      <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-          <div class="col-md-6">
-            <img
-                class="product"
-                :alt="product.title"
-                :src="require(`@/assets/images/${ product.image }`)"
-            >
-          </div>
-          <div class="col-md-6 description">
-            <h1>{{ product.title }}</h1>
-            
-            <p v-html="product.description"></p>
-            <p class="price">{{ product.price | formatPrice }}</p>
-            
-            <button @click="edit">Edit Product</button>
-            
-            <router-view></router-view>
-          </div>
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-6">
+          <img
+              class="product"
+              :alt="product.title"
+              :src="require(`@/assets/images/${ product.image }`)"
+          >
+        </div>
+        <div class="col-md-6 description">
+          <h1>{{ product.title }}</h1>
+          
+          <p v-html="product.description"></p>
+          <p class="price">{{ product.price | formatPrice }}</p>
+          
+          <button @click="edit">Edit Product</button>
+          
+          <router-view></router-view>
         </div>
       </div>
-    </fragment>
-    
-    <fragment v-else>
-      <h1>Loading...</h1>
-    </fragment>
+    </div>
   </fragment>
-
 </template>
 
 <script>
@@ -41,7 +38,7 @@
   
   
   export default {
-    name: 'ProductId',
+    name: 'Product',
     components: { MyHeader },
     data() {
       return {
@@ -57,6 +54,9 @@
       ...mapGetters([
         'getProductById'
       ]),
+      loading () {
+        return this.$store.getters.loading
+      }
     },
     async created () {
       const idRouter = this.$route.params.id;

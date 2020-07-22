@@ -43,12 +43,19 @@ const mutations = {
 
 const actions = {
   initStore: async ({ commit }) => {
+    commit('CLEAR_ERROR');
+    commit('SET_LOADING', true);
+    
     try {
       const response = await axios.get('http://localhost:3000/products')
       
       commit(SET_PRODUCTS, response.data)
-    } catch (e) {
-      throw e
+      commit('SET_LOADING', false);
+    } catch (error) {
+      commit('SET_LOADING', false);
+      commit('SET_ERROR', error.message);
+  
+      throw error
     }
   },
   subtractProductAvailable: ({ commit }, { id, availableInventory }) => {

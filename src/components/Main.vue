@@ -1,5 +1,11 @@
 <template>
-  <main>
+  <div v-if="loading" style="height: 100vh;">
+    <div style="color: red; position: absolute; left: 50%; top: 50%;">
+      <vue-loaders-pacman color="currentColor" scale="1"></vue-loaders-pacman>
+    </div>
+  </div>
+  
+  <main v-else>
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
         <div
@@ -17,7 +23,7 @@
             <router-link
                 tag="h3"
                 class="card-title"
-                :to="{ name : 'ProductId', params: { id: product.id }}"
+                :to="{ name : 'Product', params: { id: product.id }}"
             >
               {{ product.title }}
             </router-link>
@@ -98,6 +104,9 @@
           return saveProductsArray.sort(compare);
         }
       },
+      loading () {
+        return this.$store.getters.loading
+      }
     },
     created () {
       this.$store.dispatch('initStore');
