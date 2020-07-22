@@ -1,35 +1,42 @@
 <template>
   <fragment>
-    <my-header></my-header>
+<!--    <my-header></my-header>-->
     
-    <h1>This is the id {{ $route.params.id }}</h1>
-    
-    <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-        <div class="col-md-6">
-          <img
-              class="product"
-              :alt="product.title"
-              :src="require(`@/assets/images/${ product.image }`)"
-          >
-        </div>
-        <div class="col-md-6 description">
-          <h1>{{ product.title }}</h1>
-          
-          <p v-html="product.description"></p>
-          <p class="price">{{ product.price | formatPrice }}</p>
-  
-          <button @click="edit">Edit Product</button>
-          
-          <router-view></router-view>
+    <fragment v-if="product && product.id">
+      <h1>This is the id {{ $route.params.id }}</h1>
+      
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <div class="col-md-6">
+            <img
+                class="product"
+                :alt="product.title"
+                :src="require(`@/assets/images/${ product.image }`)"
+            >
+          </div>
+          <div class="col-md-6 description">
+            <h1>{{ product.title }}</h1>
+            
+            <p v-html="product.description"></p>
+            <p class="price">{{ product.price | formatPrice }}</p>
+            
+            <button @click="edit">Edit Product</button>
+            
+            <router-view></router-view>
+          </div>
         </div>
       </div>
-    </div>
+    </fragment>
+    
+    <fragment v-else>
+      <h1>Loading...</h1>
+    </fragment>
   </fragment>
+
 </template>
 
 <script>
-  import axios from 'axios';
+  import { mapGetters } from 'vuex';
   import MyHeader from './Header.vue';
   
   
@@ -46,23 +53,19 @@
         this.$router.push({name: 'Edit'})
       }
     },
+    computed: {
+      ...mapGetters([
+        'getProductById'
+      ]),
+    },
     async created () {
-      try {
-        const response = await axios.get('http://localhost:3000/products')
-        const idRouter = this.$route.params.id;
-        
-        response.data.every(dataObj => {
-          if (dataObj.id.toString() === idRouter.toString()) {
-            this.product = dataObj;
-            
-            return false;
-          }
-          
-          return true;
-        })
-      } catch (e) {
-        throw e
+      const idRouter = this.$route.params.id;
+      
+      if (!this.$store.state.products.length) {
+        await this.$store.dispatch('initStore')
       }
+      
+      this.product = this.getProductById(idRouter);
     }
   }
 </script>

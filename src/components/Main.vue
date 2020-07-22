@@ -1,6 +1,6 @@
 <template>
   <div>
-    <my-header :cartItemCount="cartItemCount"></my-header>
+    <!--    <my-header :cartItemCount="cartItemCount"></my-header>-->
     
     <main>
       <div class="row">
@@ -27,19 +27,20 @@
               
               <p class="card-text" v-html="product.description"></p>
               
-              <!--              <span class="inventory-message" v-html="shoppingTips(product)"></span>-->
               <transition name="bounce" mode="out-in">
-          <span
-              class="inventory-message"
-              v-if="(product.availableInventory - cartCount(product.id)) === 0"
-              key="0">
-            All Out!
-          </span>
                 <span
                     class="inventory-message"
-                    v-else-if="(product.availableInventory - cartCount(product.id)) < 6"
-                    key="1">
-            Only {{ product.availableInventory - cartCount(product.id) }} left!
+                    v-if="(product.availableInventory - getCartCount(product.id)) === 0"
+                    key="0"
+                >
+                  All Out!
+                </span>
+                <span
+                    class="inventory-message"
+                    v-else-if="(product.availableInventory - getCartCount(product.id)) < 6"
+                    key="1"
+                >
+                  Only {{ product.availableInventory - getCartCount(product.id) }} left!
                 </span>
                 <span class="inventory-message" v-else key="">Buy Now!</span>
               </transition>
@@ -62,7 +63,7 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import { mapGetters } from 'vuex';
   import MyHeader from './Header.vue';
   
   
@@ -71,43 +72,38 @@
     components: { MyHeader },
     data() {
       return {
-        products: [],
-        cart: [],
+        // products: [],
+        // cart: []
       }
     },
     methods: {
-      addToCart(product) {
-        this.cart.push(product)
-      },
-      canAddToCart(product) {
-        return this.cartCount(product.id) > (product.availableInventory - 1)
-      },
-      cartCount(id) {
-        if (this.cart.length) {
-          return this.cart.reduce((accumulator, available) => {
-            if (available.id === id) {
-              return accumulator += 1
+      getCartCount(id) {
+        if (this.getCartAll.length) {
+          let counter = 0
+          
+          this.getCartAll.forEach(item => {
+            if (item.id === id) {
+              counter = item.quantity;
             }
-            
-            return accumulator;
-          }, 0)
+          })
+          
+          return counter;
         }
-        
+
         return 0;
       },
-      shoppingTips(product) {
-        if (product.availableInventory - this.cartCount(product.id) === 0) return "All Out!";
-        if (product.availableInventory - this.cartCount(product.id) < 10) return `Only ${ product.availableInventory - this.cartCount(product.id) } left!`;
-        return "Order Now!";
+      addToCart(product) {
+        this.$store.dispatch("addProductToCart", product)
       },
-      submitForm() {
-        console.log('Form Submitted', this.order);
+      canAddToCart(product) {
+        return this.getCartCount(product.id) > (product.availableInventory - 1)
       },
     },
     computed: {
-      cartItemCount() {
-        return this.cart.length || '';
-      },
+      ...mapGetters({
+        getCartAll: 'getCartAll',
+        products: 'getProducts'
+      }),
       sortProducts() {
         if (this.products.length > 0) {
           const saveProductsArray = this.products.slice(0);
@@ -122,14 +118,8 @@
         }
       }
     },
-    async created () {
-      try {
-        const response = await axios.get('http://localhost:3000/products')
-        
-        this.products = response.data;
-      } catch (e) {
-        throw e
-      }
+    created () {
+      this.$store.dispatch('initStore');
     }
   }
 </script>

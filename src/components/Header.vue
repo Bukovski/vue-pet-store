@@ -23,13 +23,20 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+  
+  
   export default {
     name: "my-header",
-    props: ['cartItemCount'],
     data() {
       return {
-        siteName: "Happy whiskers"
+        siteName: "Happy whiskers",
       }
+    },
+    computed: {
+      ...mapGetters({
+        cartItemCount: 'getCartTotalQuantity'
+      })
     }
   }
 </script>
