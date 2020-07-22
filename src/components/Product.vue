@@ -1,9 +1,6 @@
 <template>
-  <div v-if="loading || !product.id" style="height: 100vh;">
-    <div style="color: red; position: absolute; left: 50%; top: 50%;">
-      <vue-loaders-pacman color="currentColor" scale="1"></vue-loaders-pacman>
-    </div>
-  </div>
+  <loader v-if="loading || !product.id"/>
+  
   
   <fragment v-else>
     <h1>This is the id {{ $route.params.id }}</h1>
@@ -35,11 +32,12 @@
 <script>
   import { mapGetters } from 'vuex';
   import MyHeader from './Header.vue';
-  
-  
+  import Loader from './Loader.vue';
+
+
   export default {
     name: 'Product',
-    components: { MyHeader },
+    components: { MyHeader, Loader },
     data() {
       return {
         product: {}
