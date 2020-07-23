@@ -1,172 +1,115 @@
 <template>
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <div class="panel panel-info">
-        <div class="panel-heading">Pet Shop Checkout</div>
-        <div class="panel-body">
-          <div class="form-group">
-            <div class="col-md-12">
-              <h4><strong>Enter Your Information</strong></h4>
+  <div class="jumbotron">
+    <div class="container">
+      <div class="row">
+  
+        <div class="col-md-10 col-md-offset-1">
+          <h2 class="h3">Pet Shop Checkout</h2>
+          
+          <p class="font-size-ms text-muted">Enter Your Information</p>
+          
+          <form class="row" @submit.prevent="submitForm">
+            <div class="col-sm-6 form-group">
+              <label class="form-label" for="order-fn">
+                First name<sup class="text-danger ml-1">*</sup>
+              </label>
+              <input class="form-control" type="text" required="" id="order-fn">
+              <div class="invalid-feedback">Please enter you first name!</div>
             </div>
             
-            <div class="form-group">
-              <div class="col-md-6">
-                <strong>First Name:</strong>
-                <input v-model.trim="order.firstName" class="form-control" />
-              </div>
-              <div class="col-md-6">
-                <strong>Last Name:</strong>
-                <input v-model.trim="order.lastName" class="form-control" />
-              </div>
+            <div class="col-sm-6 form-group">
+              <label class="form-label" for="order-ln">
+                Last name<sup class="text-danger ml-1">*</sup>
+              </label>
+              <input class="form-control" type="text" required="" id="order-ln">
+              <div class="invalid-feedback">Please enter you last name!</div>
             </div>
             
-            <div class="form-group">
-              <div class="col-md-12"><strong>Address:</strong></div>
-              <div class="col-md-12">
-                <input v-model.trim="order.address" class="form-control" />
-              </div>
+            <div class="col-sm-6 form-group">
+              <label class="form-label" for="order-email">
+                Email address<sup class="text-danger ml-1">*</sup>
+              </label>
+              <input class="form-control" type="email" required="" id="order-email">
+              <div class="invalid-feedback">Please enter a valid email address!</div>
             </div>
             
-            <div class="form-group">
-              <div class="col-md-12"><strong>City:</strong></div>
-              <div class="col-md-12">
-                <input v-model.trim="order.city" class="form-control" />
-              </div>
+            <div class="col-sm-6 form-group">
+              <label class="form-label" for="order-phone">
+                Phone number<sup class="text-danger ml-1">*</sup>
+              </label>
+              <input class="form-control bg-image-0" type="text" required="" id="order-phone">
+              <div class="invalid-feedback">Please input your number!</div>
             </div>
             
-            <div class="form-group">
-              <div class="col-md-6">
-                <strong>State:</strong>
-                <select v-model="order.state" class="form-control">
-                  <option disabled value="">State</option>
-                  <option
-                      v-for="(state, key) in states"
-                      :value="state"
-                      :key="key"
-                  >
-                    {{ key }}
-                  </option>
-                </select>
-              </div>
+            <div class="col-sm-12 form-group">
+              <label class="form-label" for="order-address">
+                Address<sup class="text-danger ml-1">*</sup>
+              </label>
+              <input class="form-control" type="password" id="order-address">
+              <div class="invalid-feedback">Please input your address!</div>
             </div>
             
-            <div class="form-group">
-              <div class="col-md-6">
-                <strong>Zip / Postal Code:</strong>
-                <input
-                    v-model.number="order.zip"
-                    class="form-control"
-                    type="number"
-                />
-              </div>
+            <div class="col-sm-12 pt-2">
+              <button class="btn btn-primary btn-block" type="submit">Place Order</button>
             </div>
-            
-            <div class="form-group">
-              <div class="col-md-6 text-left">
-                <input
-                    type="checkbox"
-                    id="gift"
-                    value="false"
-                    :true-value="order.sendGift"
-                    :false-value="order.dontSendGift"
-                    v-model="order.gift"
-                />
-                <label for="gift">Ship As Gift?</label>
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <div class="col-md-6">
-                <input
-                    type="radio"
-                    id="home"
-                    :value="order.home"
-                    v-model="order.method"
-                />
-                <label for="home">Home</label>
-                
-                <input
-                    type="radio"
-                    id="business"
-                    :value="order.business"
-                    v-model="order.method"
-                />
-                <label for="business">Business</label>
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <div class="col-md-2 pull-left">
-                <button
-                    type="submit"
-                    class="btn btn-primary submit"
-                    @click="submitForm"
-                >
-                  Place Order
-                </button>
-              </div>
-            </div>
-            
-            <div class="col-md-12 verify">
-              <ul class="list-group text-left">
-                <li class="list-group-item">First Name: {{ order.firstName }}</li>
-                <li class="list-group-item">Last Name: {{ order.lastName }}</li>
-                <li class="list-group-item">Address: {{ order.address }}</li>
-                <li class="list-group-item">City: {{ order.city }}</li>
-                <li class="list-group-item">Zip: {{ order.zip }}</li>
-                <li class="list-group-item">State: {{ order.state }}</li>
-                <li class="list-group-item">Method: {{ order.method }}</li>
-                <li class="list-group-item">Gift: {{ order.gift }}</li>
-              </ul>
-            </div>
-          </div>
+          </form>
         </div>
+        
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import MyHeader from './Header.vue';
+  import { ValidationProvider, extend } from 'vee-validate';
   
   
   export default {
     name: 'Form',
-    props: [ 'cartItemCount' ],
-    components: { MyHeader },
-    data() {
+    components: { ValidationProvider },
+    data () {
       return {
         order: {
           firstName: '',
           lastName: '',
+          email: '',
+          phone: '',
           address: '',
-          city: '',
-          zip: '',
-          state: '',
-          method: 'Home Address',
-          business: 'Business Address',
-          home: 'Home Address',
-          gift:'Send As A Gift',
-          sendGift: 'Send As A Gift',
-          dontSendGift: 'Do Not Send As A Gift'
-        },
-        states: {
-          AL: 'Alabama',
-          AK: 'Alaska',
-          AR: 'Arizona',
-          CA: 'California',
-          NV: 'Nevada'
-        },
+        }
       }
     },
     methods: {
       submitForm() {
         console.log('Form Submitted', this.order);
+        
+        this.clearForm();
       },
+      clearForm() {
+        Object.keys(this.order).forEach((key,index) => {
+          this.order[ key ] = '';
+        });
+      }
     }
-  }
+  };
 </script>
 
 <style scoped>
+  .text-danger {
+    color: #f74f78 !important;
+  }
 
+  .btn-primary {
+    color: #fff;
+    background-color: #766df4;
+    border-color: #766df4;
+    box-shadow: none;
+  }
+
+  .invalid-feedback {
+    /*display: none;*/
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 16px;
+    color: #f74f78;
+  }
 </style>
