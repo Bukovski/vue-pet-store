@@ -45,4 +45,15 @@
   from { transform: translateX(0px); }
   to { transform: translateX(100vw); }
 }
+
+/* Form.vue input phone number */
+.phone-wrapper {
+  position: relative;
+}
+
+.phone-wrapper .phone-flag {
+  position: absolute !important;
+  top: 0;
+  right: 10px;
+}
 </style>
