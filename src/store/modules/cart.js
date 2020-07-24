@@ -2,6 +2,7 @@ const ADD_PRODUCT_TO_CART = "ADD_PRODUCT_TO_CART";
 const INCREMENT_CART_ITEM_QUANTITY = "INCREMENT_CART_ITEM_QUANTITY";
 const DECREMENT_CART_ITEM_QUANTITY = "DECREMENT_CART_ITEM_QUANTITY";
 const REMOVE_ITEM_FROM_CART = "REMOVE_ITEM_FROM_CART";
+const CLEAR_CART = "CLEAR_CART";
 
 
 const state = {
@@ -57,6 +58,9 @@ const mutations = {
   
     state.cart = cartFilter
   },
+  [ CLEAR_CART ] (state) {
+    state.cart = []
+  },
 }
 
 const actions = {
@@ -87,8 +91,11 @@ const actions = {
       commit(REMOVE_ITEM_FROM_CART, product)
     }
   },
-  removeProductFromCart({ state, commit }, product) {
+  removeProductFromCart({ commit }, product) {
     commit(REMOVE_ITEM_FROM_CART, product)
+  },
+  clearCart({ commit }) {
+    commit(CLEAR_CART)
   }
 }
 

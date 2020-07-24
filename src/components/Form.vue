@@ -107,12 +107,24 @@
     },
     methods: {
       submitForm() {
-        console.log('Form Submitted', JSON.stringify(this.order));
-        console.log(this.$store.getters.getCartAll); // <--  id: 1002 quantity: 2  отправить номальные данные о заказанном товаре
+        const filterProduct = this.$store.getters
+          .getCartProducts.map(({ id, title, quantity }) => {
+            return { id, title, quantity }
+          });
+        
+        const sendInfo = Object.assign({},
+          { "order" : this.order },
+          { "totalPrice": this.$store.getters.getCartTotalPrice },
+          { "cartProduct": filterProduct }
+        )
+        
+        console.log('Form Submitted', JSON.stringify(sendInfo));
         
         this.clearForm();
-        
+  
         this.$router.push({ path: '/' });
+        
+        this.$store.dispatch('clearCart');
       },
       clearForm() {
         Object.keys(this.order).forEach((key,index) => {
