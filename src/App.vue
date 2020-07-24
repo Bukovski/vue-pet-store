@@ -2,9 +2,9 @@
   <div id="app">
     <my-header></my-header>
   
-    <transition name="fade" mode="out-in">
+<!--    <transition name="fade" mode="out-in">-->
       <router-view/>
-    </transition>
+<!--    </transition>-->
   </div>
 </template>
 
