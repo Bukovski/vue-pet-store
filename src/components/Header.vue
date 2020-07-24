@@ -8,14 +8,15 @@
       </div>
       <div class="nav navbar-nav navbar-right cart">
         <router-link
+            class="btn btn-default btn-lg"
+            :disabled="!cartItemCount"
             active-class="active"
             tag="button"
-            class="btn btn-default btn-lg"
-            :to="{ name: 'Form' }"
+            :to="{ name: 'Cart' }"
         >
           <span class="glyphicon glyphicon-shopping-cart"></span>
-          <span class="badge badge-secondary">{{ cartItemCount }}</span>
-          Checkout
+          <span class="badge badge-secondary" v-show="cartItemCount">{{ cartItemCount }}</span>
+          Cart
         </router-link >
       </div>
     </div>
@@ -23,7 +24,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters } from 'vuex';
   
   
   export default {

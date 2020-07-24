@@ -108,6 +108,7 @@
     methods: {
       submitForm() {
         console.log('Form Submitted', JSON.stringify(this.order));
+        console.log(this.$store.getters.getCartAll); // <--  id: 1002 quantity: 2  отправить номальные данные о заказанном товаре
         
         this.clearForm();
         

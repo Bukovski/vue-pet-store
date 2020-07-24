@@ -4,6 +4,7 @@ import Form from '@/components/Form';
 import Main from '@/components/Main';
 import Product from '@/components/Product';
 import EditProduct from '@/components/EditProduct';
+import Cart from '@/components/Cart';
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,11 @@ const routes = [
         component: EditProduct,
       }
     ]
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: Cart,
   },
   {
     path: '/form',
