@@ -3,7 +3,6 @@ import VueRouter from 'vue-router';
 import Form from '@/components/Form';
 import Main from '@/components/Main';
 import Product from '@/components/Product';
-import EditProduct from '@/components/EditProduct';
 import Cart from '@/components/Cart';
 import PrivetRoute from './privet-route';
 
@@ -19,14 +18,7 @@ const routes = [
   {
     path: '/product/:id',
     name: 'Product',
-    component: Product,
-    children: [
-      {
-        path: 'edit',
-        name: 'Edit',
-        component: EditProduct,
-      }
-    ]
+    component: Product
   },
   {
     path: '/cart',

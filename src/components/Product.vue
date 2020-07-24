@@ -20,8 +20,6 @@
           <p v-html="product.description"></p>
           <p class="price">{{ product.price | formatPrice }}</p>
           
-          <button @click="edit">Edit Product</button>
-          
           <router-view></router-view>
         </div>
       </div>
