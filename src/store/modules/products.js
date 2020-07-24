@@ -60,7 +60,7 @@ const actions = {
   },
   subtractProductAvailable: ({ commit }, { id, availableInventory }) => {
     commit(SET_PRODUCTS_INVENTORY, { id, availableInventory })
-  } 
+  }
 };
 
 
