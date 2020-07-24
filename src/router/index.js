@@ -5,6 +5,8 @@ import Main from '@/components/Main';
 import Product from '@/components/Product';
 import EditProduct from '@/components/EditProduct';
 import Cart from '@/components/Cart';
+import PrivetRoute from './privet-route';
+
 
 Vue.use(VueRouter)
 
@@ -30,11 +32,14 @@ const routes = [
     path: '/cart',
     name: 'Cart',
     component: Cart,
+    beforeEnter: PrivetRoute
   },
   {
     path: '/form',
     name: 'Form',
     component: Form,
+    beforeEnter: PrivetRoute
+  
   },
   {
     path: '*',

@@ -6,8 +6,7 @@ const CLEAR_CART = "CLEAR_CART";
 
 
 const state = {
-  // cart: []
-  cart: [{"id":1002,"quantity":1},{"id":1001,"quantity":2},{"id":1004,"quantity":4}]
+  cart: []
 }
 
 const getters = {
