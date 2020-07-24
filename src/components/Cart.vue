@@ -21,7 +21,7 @@
           
           <tr v-for="product of cartProducts" :key="product.id">
             <th class="remove-wrap">
-              <span class="remove-button">
+              <span class="remove-button" @click="removeProduct(product)">
                 <span class="remove-sign">✕</span>
               </span>
             </th>
@@ -43,9 +43,9 @@
             <td>{{ product.price | formatPrice }}</td>
             <td>
               <div class="quantity">
-                <span class="quantity-arrow">❮</span>
+                <span class="quantity-arrow" @click="subtractQuantity(product)">❮</span>
                 <span class="quantity-value">{{ product.quantity }}</span>
-                <span class="quantity-arrow">❯</span>
+                <span class="quantity-arrow" @click="addQuantity(product)">❯</span>
               </div>
             </td>
             <td>{{ (product.price * product.quantity) | formatPrice }}</td>
@@ -94,6 +94,24 @@
       }),
       loading () {
         return this.$store.getters.loading
+      }
+    },
+    methods: {
+      addQuantity(product) {
+        this.$store.dispatch('addQuantityProductToCart', product);
+      },
+      subtractQuantity(product) {
+        this.$store.dispatch('subtractQuantityProductToCart', product);
+      },
+      removeProduct(product) {
+        this.$store.dispatch('removeProductFromCart', product);
+      },
+    },
+    watch: {
+      getCartTotalPrice(price) {
+        if (price.toString() === "0") {
+          this.$router.push("/");
+        }
       }
     },
     created () {
@@ -149,6 +167,7 @@
     text-align: center;
   }
   .quantity-arrow {
+    user-select: none;
     cursor: pointer;
   }
   .quantity-value {

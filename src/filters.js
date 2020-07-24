@@ -2,7 +2,7 @@ import Vue from "vue"
 
 // 123456789 => $1,234,567.89
 Vue.filter("formatPrice", (price) => {
-  if (!parseInt(price)) return "";
+  if (!parseInt(price)) return "$0";
   
   if (price > 99999) {
     const priceString = (price / 100).toFixed(2);
