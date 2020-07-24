@@ -8,8 +8,11 @@
 
 
 <script>
+  import { VueLoadersPcckman } from 'vue-loaders';
+  
   export default {
-    name: 'loader'
+    name: 'loader',
+    components: { VueLoadersPcckman }
   }
 </script>
 

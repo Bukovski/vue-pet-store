@@ -1,7 +1,5 @@
 <template>
-  <loader v-if="loading"/>
-  
-  <main v-else>
+  <main>
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
         <div
@@ -48,12 +46,11 @@
   import { mapGetters } from 'vuex';
   import MyHeader from './Header.vue';
   import InventoryMessage from './InventoryMessage.vue';
-  import Loader from './Loader.vue';
   
   
   export default {
     name: 'my-main',
-    components: { MyHeader, InventoryMessage, Loader },
+    components: { MyHeader, InventoryMessage },
     data() {
       return {
         // products: [],
@@ -100,14 +97,8 @@
           
           return saveProductsArray.sort(compare);
         }
-      },
-      loading () {
-        return this.$store.getters.loading
       }
     },
-    created () {
-      this.$store.dispatch('initStore');
-    }
   }
 </script>
 

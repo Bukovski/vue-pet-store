@@ -2,19 +2,32 @@
   <div id="app">
     <my-header></my-header>
   
-<!--    <transition name="fade" mode="out-in">-->
+    <loader v-if="loading"/>
+  
+    <transition name="fade" mode="out-in" v-else>
       <router-view/>
-<!--    </transition>-->
+    </transition>
   </div>
 </template>
 
 <script>
   import MyHeader from './components/Header.vue';
-  
-  
+  import Loader from './components/Loader.vue';
+
+
   export default {
     name: 'app',
-    components: { MyHeader },
+    components: { MyHeader, Loader },
+    computed: {
+      loading () {
+        return this.$store.getters.loading
+      }
+    },
+    async created () {
+      if (!this.$store.state.products.length) {
+        await this.$store.dispatch('initStore')
+      }
+    }
   }
 </script>
 

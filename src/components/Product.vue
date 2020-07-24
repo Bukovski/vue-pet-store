@@ -1,8 +1,5 @@
 <template>
-  <loader v-if="loading || !product.id"/>
-  
-  
-  <fragment v-else>
+  <fragment>
     <h1>This is the id {{ $route.params.id }}</h1>
     
     <div class="row">
@@ -30,12 +27,11 @@
 <script>
   import { mapGetters } from 'vuex';
   import MyHeader from './Header.vue';
-  import Loader from './Loader.vue';
 
 
   export default {
     name: 'Product',
-    components: { MyHeader, Loader },
+    components: { MyHeader },
     data() {
       return {
         product: {}
@@ -50,16 +46,9 @@
       ...mapGetters([
         'getProductById'
       ]),
-      loading () {
-        return this.$store.getters.loading
-      }
     },
-    async created () {
+    created () {
       const idRouter = this.$route.params.id;
-      
-      if (!this.$store.state.products.length) {
-        await this.$store.dispatch('initStore')
-      }
       
       this.product = this.getProductById(idRouter);
     }

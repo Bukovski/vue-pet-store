@@ -1,7 +1,5 @@
 <template>
-  <loader v-if="loading"/>
-  
-  <div class="container" v-else>
+  <div class="container">
     <div class="row">
       <h2>Cart</h2>
       
@@ -81,21 +79,10 @@
 
 <script>
   import { mapGetters } from 'vuex';
-  import Loader from './Loader.vue';
 
 
   export default {
     name: "Cart",
-    components: { Loader },
-    computed: {
-      ...mapGetters({
-        getCartTotalPrice: 'getCartTotalPrice',
-        cartProducts: 'getCartProducts',
-      }),
-      loading () {
-        return this.$store.getters.loading
-      }
-    },
     methods: {
       addQuantity(product) {
         this.$store.dispatch('addQuantityProductToCart', product);
@@ -107,6 +94,15 @@
         this.$store.dispatch('removeProductFromCart', product);
       },
     },
+    computed: {
+      ...mapGetters({
+        getCartTotalPrice: 'getCartTotalPrice',
+        cartProducts: 'getCartProducts',
+      }),
+      loading () {
+        return this.$store.getters.loading
+      }
+    },
     watch: {
       getCartTotalPrice(price) {
         if (price.toString() === "0") {
@@ -114,9 +110,6 @@
         }
       }
     },
-    created () {
-      this.$store.dispatch('initStore');
-    }
   }
 </script>
 
