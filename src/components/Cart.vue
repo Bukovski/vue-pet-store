@@ -1,5 +1,7 @@
 <template>
-  <div class="container">
+  <loader v-if="loading"/>
+  
+  <div class="container" v-else>
     <div class="row">
       <h2>Cart</h2>
       
@@ -16,7 +18,8 @@
           </tr>
           </thead>
           <tbody>
-          <tr class="product">
+          
+          <tr v-for="product of cartProducts" :key="product.id">
             <th class="remove-wrap">
               <span class="remove-button">
                 <span class="remove-sign">✕</span>
@@ -24,59 +27,32 @@
             </th>
             <th>
               <div class="cart-wrapper-title">
-                <img alt="image" src="/img/cat-eats-from-bowl.414e21a5.jpg" class="cart-image">
+                <img
+                   alt="image"
+                   :src="require(`@/assets/images/${ product.image }`)"
+                   class="cart-image">
                 <router-link
                     tag="span"
                     class="cart-title"
-                    :to="{ name : 'Product', params: { id: '1001' }}"
+                    :to="{ name : 'Product', params: { id: product.id }}"
                 >
-                  Cat Food, 25lb bag
-<!--                    :to="{ name : 'Product', params: { id: product.id }}"-->
-                    <!--                  {{ product.title }}-->
+                  {{ product.title }}
                 </router-link>
               </div>
             </th>
-            <td>$4.99</td>
+            <td>{{ product.price | formatPrice }}</td>
             <td>
               <div class="quantity">
                 <span class="quantity-arrow">❮</span>
-                <span class="quantity-value">5</span>
+                <span class="quantity-value">{{ product.quantity }}</span>
                 <span class="quantity-arrow">❯</span>
               </div>
             </td>
-            <td>$50.00</td>
+            <td>{{ (product.price * product.quantity) | formatPrice }}</td>
           </tr>
-
-          <tr class="product">
-            <th class="remove-wrap">
-              <span class="remove-button">
-                <span class="remove-sign">✕</span>
-              </span>
-            </th>
-            <th>
-              <div class="cart-wrapper-title">
-                <img alt="image" src="/img/cavy.b0a874f5.jpg" class="cart-image">
-                <router-link
-                    tag="span"
-                    class="cart-title"
-                    :to="{ name : 'Product', params: { id: '1002' }}"
-                >
-                  Cavy                  <!--                    :to="{ name : 'Product', params: { id: product.id }}"-->
-                  <!--                  {{ product.title }}-->
-                </router-link>
-              </div>
-            </th>
-            <td>$4.99</td>
-            <td>
-              <div class="quantity">
-                <span class="quantity-arrow">❮</span>
-                <span class="quantity-value">5</span>
-                <span class="quantity-arrow">❯</span>
-              </div>
-            </td>
-            <td>$50.00</td>
-          </tr>
-          <tr class="product">
+          
+          
+          <tr>
             <td colspan="2">
             </td>
             <td>
@@ -92,25 +68,45 @@
               <span class="cart-total-title">Total:</span>
             </td>
             <td>
-              <span class="cart-total">$5 556.99</span>
+              <span class="cart-total">{{ getCartTotalPrice | formatPrice }}</span>
             </td>
           </tr>
           </tbody>
         </table>
-      
+        
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+  import Loader from './Loader.vue';
+
+
   export default {
-    name: "Cart"
+    name: "Cart",
+    components: { Loader },
+    computed: {
+      ...mapGetters({
+        getCartTotalPrice: 'getCartTotalPrice',
+        cartProducts: 'getCartProducts',
+      }),
+      loading () {
+        return this.$store.getters.loading
+      }
+    },
+    created () {
+      this.$store.dispatch('initStore');
+    }
   }
 </script>
 
 <style scoped>
-  .product td {
+  .table thead th {
+    text-align: center;
+  }
+  .table td {
     vertical-align: inherit;
   }
   .cart-wrapper-title {

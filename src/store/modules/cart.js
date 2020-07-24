@@ -3,7 +3,8 @@ const INCREMENT_CART_ITEM_QUANTITY = "INCREMENT_CART_ITEM_QUANTITY";
 
 
 const state = {
-  cart: []
+  // cart: []
+  cart: [{"id":1002,"quantity":2},{"id":1001,"quantity":2},{"id":1004,"quantity":2}]
 }
 
 const getters = {
