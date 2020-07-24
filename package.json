@@ -6,16 +6,18 @@
     "type": "git",
     "url": "git+https://github.com/Bukovski/vue-pet-store.git"
   },
-  "homepage": "https://bukovski.github.io/vue-pet-store/",
+  "homepage": "https://bukovski.github.io/vue-pet-store",
   "keywords": [
     "vue example",
     "vuex example",
     "vue-router example"
   ],
   "author": "Bukovski",
+  "wst": "/dist/",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "deploy": "node ./node_modules/vue-gh-pages/index.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -34,6 +36,7 @@
     "@vue/cli-plugin-router": "~4.4.0",
     "@vue/cli-plugin-vuex": "~4.4.0",
     "@vue/cli-service": "~4.4.0",
+    "vue-gh-pages": "^1.19.1",
     "vue-template-compiler": "^2.6.11"
   },
   "browserslist": [
