@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git+https://github.com/Bukovski/vue-pet-store.git"
   },
-  "homepage": "https://bukovski.github.io/vue-pet-store",
+  "homepage": "https://bukovski.github.io/vue-pet-store/",
   "keywords": [
     "vue example",
     "vuex example",
