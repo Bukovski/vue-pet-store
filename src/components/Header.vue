@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="navbar navbar-default">
+    <div class="navbar navbar-default menu-fixed">
       <div class="navbar-header navbar-logo">
           <router-link class="site-link" :to="{ name: 'Main' }">
             <span class="site-logo">
@@ -88,9 +88,29 @@
   }
 
   @media (max-width: 768px) {
+    .menu-fixed {
+      position: fixed;
+      right: 0;
+      left: 0;
+      top: 0;
+      z-index: 1030;
+    }
     .navbar {
       display: flex;
       justify-content: space-between;
+    }
+    .navbar-logo {
+      margin: 0;
+    }
+    .site-logo {
+      width: 55px;
+    }
+    .site-title {
+      font-size: 21px;
+    }
+    .cart {
+      padding: 7px 0;
+      margin: 0;
     }
   }
 </style>

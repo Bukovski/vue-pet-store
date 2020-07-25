@@ -69,4 +69,10 @@
   top: 0;
   right: 10px;
 }
+
+@media (max-width: 768px) {
+  #app {
+    margin-top: 55px;
+  }
+}
 </style>

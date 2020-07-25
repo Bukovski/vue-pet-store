@@ -23,7 +23,7 @@
                 <span class="remove-sign">✕</span>
               </span>
             </th>
-            <th>
+            <th class="cart-title-th">
               <div class="cart-wrapper-title">
                 <img
                    alt="image"
@@ -51,9 +51,9 @@
           
           
           <tr>
-            <td colspan="2">
-            </td>
             <td>
+            </td>
+            <td colspan="2">
               <router-link
                   class="btn btn-info"
                   tag="button"
@@ -120,9 +120,7 @@
   .table td {
     vertical-align: inherit;
   }
-  .cart-wrapper-title {
-  
-  }
+  .cart-wrapper-title {}
   .cart-image {
     width: 120px;
     height: auto;
@@ -177,24 +175,43 @@
   }
 
   @media (max-width: 680px) {
+    .table>thead>tr>th,
+    .table>tbody>tr>td {
+      padding: 0;
+    }
+    
     .remove-wrap {
       position: relative;
       padding: 0;
-      width: 10px;
+      width: 0;
       vertical-align: inherit;
     }
     .remove-button {
       position: absolute;
       top: 5px;
-      left: 2px;
+      left: -7px;
       padding: 0 5px;
-      background-color: #e40000;
+      background-color: transparent;
+    }
+    .remove-button:hover {
+      background-color: transparent;
     }
     .remove-sign {
       top: 1px;
+      color: #c60000;
+    }
+    
+    .cart-title-th {
+      padding: 8px 0;
     }
     .cart-image {
       display: none;
+    }
+    .cart-title {
+      font-size: 16px;
+    }
+    .btn-info {
+      padding: 5px 8px;
     }
   }
 </style>
