@@ -1,86 +1,84 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <h2>Cart</h2>
+  <div class="row">
+    <h2>Cart</h2>
+    
+    <div class="col-md-10 col-md-offset-1">
       
-      <div class="col-md-10 col-md-offset-1">
+      <table class="table">
+        <thead>
+        <tr>
+          <th></th>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Amount</th>
+        </tr>
+        </thead>
+        <tbody>
         
-        <table class="table">
-          <thead>
-          <tr>
-            <th></th>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Amount</th>
-          </tr>
-          </thead>
-          <tbody>
-          
-          <tr v-for="product of cartProducts" :key="product.id">
-            <th class="remove-wrap">
+        <tr v-for="product of cartProducts" :key="product.id">
+          <th class="remove-wrap">
               <span class="remove-button" @click="removeProduct(product)">
                 <span class="remove-sign">✕</span>
               </span>
-            </th>
-            <th class="cart-title-th">
-              <div class="cart-wrapper-title">
-                <img
-                   alt="image"
-                   :src="require(`@/assets/images/${ product.image }`)"
-                   class="cart-image">
-                <router-link
-                    tag="span"
-                    class="cart-title"
-                    :to="{ name : 'Product', params: { id: product.id }}"
-                >
-                  {{ product.title }}
-                </router-link>
-              </div>
-            </th>
-            <td>{{ product.price | formatPrice }}</td>
-            <td>
-              <div class="quantity">
-                <span class="quantity-arrow" @click="subtractQuantity(product)">❮</span>
-                <span class="quantity-value">{{ product.quantity }}</span>
-                <span class="quantity-arrow" @click="addQuantity(product)">❯</span>
-              </div>
-            </td>
-            <td>{{ (product.price * product.quantity) | formatPrice }}</td>
-          </tr>
-          
-          
-          <tr>
-            <td>
-            </td>
-            <td colspan="2">
+          </th>
+          <th class="cart-title-th">
+            <div class="cart-wrapper-title">
+              <img
+                  alt="image"
+                  :src="require(`@/assets/images/${ product.image }`)"
+                  class="cart-image">
               <router-link
-                  class="btn btn-info"
-                  tag="button"
-                  to="/form"
+                  tag="span"
+                  class="cart-title"
+                  :to="{ name : 'Product', params: { id: product.id }}"
               >
-                Checkout
+                {{ product.title }}
               </router-link>
-            </td>
-            <td>
-              <span class="cart-total-title">Total:</span>
-            </td>
-            <td>
-              <span class="cart-total">{{ getCartTotalPrice | formatPrice }}</span>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+            </div>
+          </th>
+          <td>{{ product.price | formatPrice }}</td>
+          <td>
+            <div class="quantity">
+              <span class="quantity-arrow" @click="subtractQuantity(product)">❮</span>
+              <span class="quantity-value">{{ product.quantity }}</span>
+              <span class="quantity-arrow" @click="addQuantity(product)">❯</span>
+            </div>
+          </td>
+          <td>{{ (product.price * product.quantity) | formatPrice }}</td>
+        </tr>
         
-      </div>
+        
+        <tr>
+          <td>
+          </td>
+          <td colspan="2">
+            <router-link
+                class="btn btn-info"
+                tag="button"
+                to="/form"
+            >
+              Checkout
+            </router-link>
+          </td>
+          <td>
+            <span class="cart-total-title">Total:</span>
+          </td>
+          <td>
+            <span class="cart-total">{{ getCartTotalPrice | formatPrice }}</span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    
     </div>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex';
-
-
+  
+  
   export default {
     name: "Cart",
     methods: {
@@ -173,7 +171,7 @@
     font-weight: bold;
     font-size: 18px;
   }
-
+  
   @media (max-width: 680px) {
     .table>thead>tr>th,
     .table>tbody>tr>td {
@@ -197,7 +195,8 @@
       background-color: transparent;
     }
     .remove-sign {
-      top: 1px;
+      top: 3px;
+      font-size: 17px;
       color: #c60000;
     }
     

@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="navbar navbar-default menu-fixed">
+    <nav class="navbar navbar-default menu-fixed" role="menubar">
       <div class="navbar-header navbar-logo">
           <router-link class="site-link" :to="{ name: 'Main' }">
             <span class="site-logo">
@@ -24,7 +24,7 @@
           Cart
         </router-link >
       </div>
-    </div>
+    </nav>
   </header>
 </template>
 
@@ -86,19 +86,21 @@
   .router-link-exact-active {
     color: blue;
   }
+  
+  .menu-fixed {
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    z-index: 1030;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+  }
 
   @media (max-width: 768px) {
-    .menu-fixed {
-      position: fixed;
-      right: 0;
-      left: 0;
-      top: 0;
-      z-index: 1030;
-    }
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-    }
     .navbar-logo {
       margin: 0;
     }

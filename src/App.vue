@@ -1,12 +1,14 @@
 <template>
   <div id="app">
     <my-header></my-header>
-  
-    <loader v-if="loading"/>
-  
-    <transition name="fade" mode="out-in" v-else>
-      <router-view/>
-    </transition>
+
+    <div class="container">
+      <loader v-if="loading"/>
+      
+      <transition name="fade" mode="out-in" v-else>
+        <router-view/>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -33,6 +35,8 @@
 
 <style>
 #app {
+  margin-top: 87px;
+  
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

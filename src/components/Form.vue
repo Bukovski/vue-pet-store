@@ -1,67 +1,63 @@
 <template>
-  <div class="jumbotron">
-    <div class="container">
-      <div class="row">
-        
-        <div class="col-md-10 col-md-offset-1">
-          <h2 class="h3">Pet Shop Checkout</h2>
-          
-          <p class="font-size-ms text-muted">Enter Your Information</p>
-          
-          <ValidationObserver v-slot="{ invalid }">
-            
-            <form class="row" @submit.prevent="submitForm">
-              
-              <ValidationProvider class="col-sm-6 form-group" tag="div" v-slot="{ errors }" rules="minmax:3,16,First name|alpha_spaces|required">
-                <label class="form-label" for="first-name">
-                  First name<sup class="text-danger ml-1">*</sup>
-                </label>
-                <input class="form-control" type="text" id="first-name" v-model.lazy="order.firstName" >
-                <div class="invalid-feedback" >{{ errors[0] }}</div>
-              </ValidationProvider>
-              
-              <ValidationProvider class="col-sm-6 form-group" tag="div" v-slot="{ errors }" rules="minmax:3,25,Last name|alpha_spaces|required">
-                <label class="form-label" for="last-name">
-                  Last name<sup class="text-danger ml-1">*</sup>
-                </label>
-                <input class="form-control" type="text" id="last-name" v-model.lazy="order.lastName" >
-                <div class="invalid-feedback" >{{ errors[0] }}</div>
-              </ValidationProvider>
-              
-              <ValidationProvider class="col-sm-6 form-group" tag="div" v-slot="{ errors }" rules="email|required">
-                <label class="form-label" for="email">
-                  Email address<sup class="text-danger ml-1">*</sup>
-                </label>
-                <input class="form-control" type="text" id="email" v-model.lazy="order.email" >
-                <div class="invalid-feedback" >{{ errors[0] }}</div>
-              </ValidationProvider>
-              
-              <div class="col-sm-6 form-group" tag="div">
-                <label class="form-label" for="phone">
-                  Phone number<sup class="text-danger ml-1">*</sup>
-                </label>
-                <phone-mask-input
-                    v-model.lazy="order.phone"
-                    autoDetectCountry
-                    showFlag
-                    @onValidate="onValidate"
-                    wrapperClass="phone-wrapper"
-                    inputClass="form-control"
-                    flagClass="phone-flag"
-                />
-                <div class="invalid-feedback" v-show="phoneError">{{ phoneError }}</div>
-              </div>
-              
-              <div class="col-sm-12 pt-2">
-                <button class="btn btn-primary btn-block" type="submit" :disabled="!!phoneError || invalid">Place Order</button>
-              </div>
-            </form>
-          
-          </ValidationObserver>
-        </div>
+  <div class="row">
+    
+    <div class="col-md-10 col-md-offset-1">
+      <h2 class="h3">Pet Shop Checkout</h2>
       
-      </div>
+      <p class="font-size-ms text-muted">Enter Your Information</p>
+      
+      <ValidationObserver v-slot="{ invalid }">
+        
+        <form class="row" @submit.prevent="submitForm">
+          
+          <ValidationProvider class="col-sm-6 form-group" tag="div" v-slot="{ errors }" rules="minmax:3,16,First name|alpha_spaces|required">
+            <label class="form-label" for="first-name">
+              First name<sup class="text-danger ml-1">*</sup>
+            </label>
+            <input class="form-control" type="text" id="first-name" v-model.lazy="order.firstName" >
+            <div class="invalid-feedback" >{{ errors[0] }}</div>
+          </ValidationProvider>
+          
+          <ValidationProvider class="col-sm-6 form-group" tag="div" v-slot="{ errors }" rules="minmax:3,25,Last name|alpha_spaces|required">
+            <label class="form-label" for="last-name">
+              Last name<sup class="text-danger ml-1">*</sup>
+            </label>
+            <input class="form-control" type="text" id="last-name" v-model.lazy="order.lastName" >
+            <div class="invalid-feedback" >{{ errors[0] }}</div>
+          </ValidationProvider>
+          
+          <ValidationProvider class="col-sm-6 form-group" tag="div" v-slot="{ errors }" rules="email|required">
+            <label class="form-label" for="email">
+              Email address<sup class="text-danger ml-1">*</sup>
+            </label>
+            <input class="form-control" type="text" id="email" v-model.lazy="order.email" >
+            <div class="invalid-feedback" >{{ errors[0] }}</div>
+          </ValidationProvider>
+          
+          <div class="col-sm-6 form-group" tag="div">
+            <label class="form-label" for="phone">
+              Phone number<sup class="text-danger ml-1">*</sup>
+            </label>
+            <phone-mask-input
+                v-model.lazy="order.phone"
+                autoDetectCountry
+                showFlag
+                @onValidate="onValidate"
+                wrapperClass="phone-wrapper"
+                inputClass="form-control"
+                flagClass="phone-flag"
+            />
+            <div class="invalid-feedback" v-show="phoneError">{{ phoneError }}</div>
+          </div>
+          
+          <div class="col-sm-12 pt-2">
+            <button class="btn btn-primary btn-block" type="submit" :disabled="!!phoneError || invalid">Place Order</button>
+          </div>
+        </form>
+      
+      </ValidationObserver>
     </div>
+  
   </div>
 </template>
 
@@ -121,7 +117,7 @@
         console.log('Form Submitted', JSON.stringify(sendInfo));
         
         this.clearForm();
-  
+        
         this.$router.push({ path: '/' });
         
         this.$store.dispatch('clearCart');
