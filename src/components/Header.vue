@@ -1,10 +1,15 @@
 <template>
   <header>
     <div class="navbar navbar-default">
-      <div class="navbar-header">
-        <h1 class="site-title">
-          <router-link class="site-link" :to="{ name: 'Main' }">{{ siteName }}</router-link>
-        </h1>
+      <div class="navbar-header navbar-logo">
+          <router-link class="site-link" :to="{ name: 'Main' }">
+            <span class="site-logo">
+              <img :src="require('@/assets/images/logo.png')" alt="logo">
+            </span>
+            <span class="site-title">
+            {{ siteName }}
+            </span>
+          </router-link>
       </div>
       <div class="nav navbar-nav navbar-right cart">
         <router-link
@@ -43,12 +48,30 @@
 </script>
 
 <style scoped>
-  .site-title {
-    padding: 10px 20px;
+  .navbar-logo {
+    margin: 5px 15px;
+    width: 200px;
+    display: flex;
+    align-items: center;
   }
-
-  .site-title .site-link {
+  .site-link {
+    position: relative;
+  }
+  
+  .site-title {
+    position: absolute;
+    font-size: 28px;
     color: black;
+  }
+  
+  .site-logo {
+    display: inline-block;
+    width: 70px;
+  }
+  .site-logo img {
+    display: block;
+    height: auto;
+    max-width: 100%;
   }
   
   .cart {
@@ -62,5 +85,12 @@
   
   .router-link-exact-active {
     color: blue;
+  }
+
+  @media (max-width: 768px) {
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 </style>

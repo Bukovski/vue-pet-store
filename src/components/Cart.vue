@@ -175,4 +175,26 @@
     font-weight: bold;
     font-size: 18px;
   }
+
+  @media (max-width: 680px) {
+    .remove-wrap {
+      position: relative;
+      padding: 0;
+      width: 10px;
+      vertical-align: inherit;
+    }
+    .remove-button {
+      position: absolute;
+      top: 5px;
+      left: 2px;
+      padding: 0 5px;
+      background-color: #e40000;
+    }
+    .remove-sign {
+      top: 1px;
+    }
+    .cart-image {
+      display: none;
+    }
+  }
 </style>

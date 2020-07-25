@@ -4,14 +4,14 @@
     
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
-        <div class="col-md-6">
+        <div class="col-md-8 col-xs-12">
           <img
-              class="product"
+              class="product-img"
               :alt="product.title"
               :src="require(`@/assets/images/${ product.image }`)"
           >
         </div>
-        <div class="col-md-6 description">
+        <div class="col-md-4 col-xs-12 description">
           <h1>{{ product.title }}</h1>
           
           <p v-html="product.description"></p>
@@ -59,5 +59,9 @@
   .description {
     margin-top: 50px;
     font-size: 20px;
+  }
+  .product-img {
+    height: auto;
+    max-width: 100%;
   }
 </style>

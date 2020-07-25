@@ -3,12 +3,12 @@
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
         <div
-            class="card col-lg-4 col-md-6 col-sm-12 card-frame"
+            class="card col-lg-4 col-md-6 col-xs-12 card-frame"
             v-for="product in sortProducts"
             :key="product.id"
         >
           <img
-              class="card-img-top"
+              class="col-xs-10 card-img-top"
               alt="image"
               :src="require(`@/assets/images/${ product.image }`)"
           />
@@ -121,5 +121,11 @@
   .card-title {
     cursor: pointer;
     color: #1E95EA;
+  }
+
+  @media (max-width: 990px) {
+    .card-img-top {
+      min-height: 280px;
+    }
   }
 </style>

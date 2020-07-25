@@ -10,7 +10,10 @@
   "keywords": [
     "vue example",
     "vuex example",
-    "vue-router example"
+    "vue-router example",
+    "form validate",
+    "vue loader",
+    "protect router"
   ],
   "author": "Bukovski",
   "wst": "/dist/",
