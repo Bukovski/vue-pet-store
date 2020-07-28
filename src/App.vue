@@ -61,7 +61,7 @@
         if (successMessage.totalPrice) {
           this.showSuccessMessage = true;
       
-          return `${ successMessage.user } your your ${ this.$options.filters.formatPrice(successMessage.totalPrice) } order is accepted`
+          return `${ successMessage.user } your ${ this.$options.filters.formatPrice(successMessage.totalPrice) } order is accepted`
         }
         
         return '';
