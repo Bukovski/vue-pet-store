@@ -47,7 +47,7 @@ const actions = {
     commit('SET_LOADING', true);
     
     try {
-      const response = await axios.get('http://localhost:3000/products')
+      const response = await axios.get('http://localhost:3500/products')
       
       commit(SET_PRODUCTS, response.data)
       commit('SET_LOADING', false);

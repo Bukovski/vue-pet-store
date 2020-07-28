@@ -13,7 +13,7 @@ On the page with the submit form, the data entry check is implemented.
 
 * To start a project, you must set up all npm dependent commands.
 `npm install`
-* Install global `npm i -g json-server` and run server `json-server src/assets/products.json`
+* Install global `npm i -g json-server` and run server `json-server src/assets/products.json` or run the command in terminal `npm run json`
 * All settings save to `vue.config.js`
 
 

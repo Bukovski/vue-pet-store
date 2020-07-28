@@ -20,6 +20,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "json": "json-server src/assets/products.json -p 3500",
     "deploy": "node ./node_modules/vue-gh-pages/index.js"
   },
   "dependencies": {
